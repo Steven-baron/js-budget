@@ -5,17 +5,14 @@ import Expenses from "./expenses.js"
 
 const expenses = Expenses.expenses
 
-let tabSelected = Object.keys(expenses)[0]
+let tabs = Object.keys(expenses)
 
 
 
 
-function showText() {
-
-  document.getElementById('title').innerText = 'Expenses'
 
 
-}
+
 
 function insertExpenses() {
 
@@ -24,7 +21,7 @@ function insertExpenses() {
 
   let html = ""
 
-  Object.keys(expenses).forEach(category => {
+  tabs.forEach(category => {
 
     html += `<button class="expense-button" data-category="${category}">${category}</button> `
   })
@@ -39,20 +36,20 @@ function buttonGetter() {
 
   buttons.forEach(button => {
     button.addEventListener("click", function(e) {
-      tabSelected = `${e.target.dataset.category}`
+      const selectedTab = e.target.dataset.category
 
-      showExpensesCategory()
-      showExpenses(tabSelected)
+      showExpensesCategory(selectedTab)
+      showExpenses(selectedTab)
     })
   })
 
 
 }
 
-function showExpensesCategory() {
+function showExpensesCategory(tab) {
 
   let expensesTitle = document.querySelector('.expenses-title')
-  let html = `<h1>${tabSelected}</h1>`
+  let html = `<h1>${tab}</h1>`
 
   expensesTitle.innerHTML = html
 
@@ -98,9 +95,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-  showText()
   insertExpenses()
   buttonGetter()
-  showExpensesCategory()
-  showExpenses(tabSelected)
+  showExpensesCategory(tabs[0])
+  showExpenses(tabs[0])
 })
+
+
+
